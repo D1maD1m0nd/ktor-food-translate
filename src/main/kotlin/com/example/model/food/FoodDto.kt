@@ -1,19 +1,16 @@
-package com.example.foodnote.data.model.food
+package com.example.model.food
 
-import android.os.Parcelable
-import kotlinx.parcelize.Parcelize
-
-@Parcelize
+@kotlinx.serialization.Serializable
 data class FoodDto(
     val image: String,
-    val name: String,
+    var name: String,
     val kiloCalories: Double,
     val protein: Double,
     val fat: Double,
     val carbohydrate: Double,
     var count: Int = 0,
     var docId: String? = null
-) : Parcelable {
+) {
     fun incCount(): FoodDto {
         ++count
         return this

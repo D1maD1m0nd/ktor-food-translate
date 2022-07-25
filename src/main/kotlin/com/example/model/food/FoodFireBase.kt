@@ -1,4 +1,4 @@
-package com.example.foodnote.data.model.food
+package com.example.model.food
 
 data class FoodFireBase(
     val image: String? = null,

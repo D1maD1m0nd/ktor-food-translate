@@ -1,7 +1,7 @@
 package com.example.utils
 
-import com.example.foodnote.data.model.food.FoodDto
 import com.example.model.food.Food
+import com.example.model.food.FoodDto
 
 fun Food.toFoodListDto(): List<FoodDto> {
     val foods = this.hints.map {

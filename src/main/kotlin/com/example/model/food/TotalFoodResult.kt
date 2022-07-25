@@ -1,4 +1,4 @@
-package com.example.foodnote.data.model.food
+package com.example.model.food
 
 data class TotalFoodResult(
     val calorieSumMax: Double,
