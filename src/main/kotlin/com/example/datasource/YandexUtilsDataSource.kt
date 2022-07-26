@@ -17,7 +17,7 @@ import kotlinx.coroutines.launch
 import kotlinx.serialization.json.Json
 
 object YandexUtilsDataSource {
-    val scopeCo by lazy {
+    private val scopeCo by lazy {
         CoroutineScope(Dispatchers.IO)
     }
     private const val REPEAT_COUNT = 1000
