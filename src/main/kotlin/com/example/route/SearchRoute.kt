@@ -15,9 +15,15 @@ fun Route.searchRouting() {
             val word = call.request.queryParameters["word"]
             val top = call.request.queryParameters["top"]?.toInt() ?: 10
             if (!word.isNullOrBlank()) {
-                val regEx = "[а-я|А-Я]".toRegex()
-                val targetWord = if (word.matches(regEx)) {
-                    YandexDataSource.translate(word, "en").body()
+                val regEx = "[а-я]+".toRegex(setOf(RegexOption.IGNORE_CASE))
+                val isRuLang = word.matches(regEx)
+                val targetWord = if (isRuLang) {
+                    val translateResponse: YandexTranslateModel = YandexDataSource.translate(word, "en").body()
+                    if(translateResponse.translations.isNotEmpty()) {
+                        translateResponse.translations.first().text
+                    } else {
+                        word
+                    }
                 } else {
                     word
                 }
