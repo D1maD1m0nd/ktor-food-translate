@@ -22,7 +22,7 @@ fun Route.searchRouting() {
             val top = call.request.queryParameters["top"]?.toInt() ?: 10
             if (!word.isNullOrBlank()) {
                 val regEx = "[а-я]+".toRegex(setOf(RegexOption.IGNORE_CASE))
-                val isRuLang = word.matches(regEx)
+                val isRuLang = word.replace("\\s".toRegex(), "").matches(regEx)
                 val targetWord = if (isRuLang) {
                     val translateResponse: YandexTranslateModel = YandexDataSource.translate(word, "en").body()
                     if (translateResponse.translations.isNotEmpty()) {
