@@ -10,8 +10,14 @@ import io.ktor.server.response.*
 import io.ktor.server.routing.*
 
 fun Route.searchRouting() {
+    val apiKeyRequire = environment?.config?.property("auth_config.api_key")?.getString()
     route("/search") {
         get {
+            val apiKey = call.request.headers["Authorization"]
+            if (apiKey != apiKeyRequire) {
+                call.respondText("API_KEY is not valid", status = HttpStatusCode.Unauthorized)
+                return@get
+            }
             val word = call.request.queryParameters["word"]
             val top = call.request.queryParameters["top"]?.toInt() ?: 10
             if (!word.isNullOrBlank()) {
@@ -19,7 +25,7 @@ fun Route.searchRouting() {
                 val isRuLang = word.matches(regEx)
                 val targetWord = if (isRuLang) {
                     val translateResponse: YandexTranslateModel = YandexDataSource.translate(word, "en").body()
-                    if(translateResponse.translations.isNotEmpty()) {
+                    if (translateResponse.translations.isNotEmpty()) {
                         translateResponse.translations.first().text
                     } else {
                         word
