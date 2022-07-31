@@ -13,7 +13,7 @@ fun Route.searchRouting() {
     val apiKeyRequire = environment?.config?.property("auth_config.api_key")?.getString()
     route("/search") {
         get {
-            val apiKey = call.request.headers["Authorization"]
+            val apiKey = call.request.queryParameters["api_key"]
             if (apiKey != apiKeyRequire) {
                 call.respondText("API_KEY is not valid", status = HttpStatusCode.Unauthorized)
                 return@get

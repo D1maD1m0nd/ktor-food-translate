@@ -15,9 +15,9 @@ fun Food.toFoodDto(): FoodDto {
     return FoodDto(
         this.image ?: "",
         this.label ?: "",
-        this.nutrients?.ENERC_KCAL ?: 0.0,
-        this.nutrients?.PROCNT ?: 0.0,
-        this.nutrients?.FAT ?: 0.0,
-        this.nutrients?.CHOCDF ?: 0.0
+        this.nutrients?.ENERC_KCAL?.toInt() ?: 0,
+        this.nutrients?.PROCNT?.toInt() ?: 0,
+        this.nutrients?.FAT?.toInt() ?: 0,
+        this.nutrients?.CHOCDF?.toInt() ?: 0
     )
 }

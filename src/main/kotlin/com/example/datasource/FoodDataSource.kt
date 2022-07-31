@@ -16,7 +16,8 @@ import kotlinx.serialization.json.Json
 
 object FoodDataSource {
     private val client = HttpClient(CIO) {
-        install(ContentNegotiation) {
+
+    install(ContentNegotiation) {
             json(Json {
                 prettyPrint = true
                 isLenient = true
